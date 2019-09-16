@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>G Drive Uploader</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  {{ style('style') }}
+</head>
+<body>
+    @if(flashMessage('notification'))
+    <div class="notification is-primary">
+      {{ flashMessage('notification') }}
+    </div>
+    @endif
+  <section>
+    <div class="logo"></div>
+  <div  class="title">G-Drive Uploader</div>
+    @if(user)
+    <div style="margin:50px;" class="subtitle ">
+      {{ user }} <a href="{{ route('logout')}}" style="text-decoration:none;" class="button is-danger is-small" >Sign Out</a>
+    </div>
+    @else
+    <div style="margin:10px;" class="subtitle" > 
+    <a href="{{ route('social.login')}}" style="text-decoration:none;" class="button   is-outlined">
+      <span class="icon">
+        <i class="fab fa-google"></i>
+      </span>
+      <span>Sign In to upload</span>
+    </a> 
+    </div>
+    @endif
+
+    @if(user)
+    <form method="POST" action="files" enctype="multipart/form-data">
+      {{ csrfField() }}
+      <input required type="file" name="drive_file" />
+      <button type="submit"> Upload </button>
+    </form>
+    @endif
+  </section>
+</body>
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</html>
